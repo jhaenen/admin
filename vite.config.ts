@@ -14,7 +14,7 @@ export default defineConfig(({command, mode}) => {
         input: {
           main: resolveDir('index.html'),
           'login.html': resolveDir('login.html'),
-        }
+        },
       }
     },
     plugins: [svelte()],
@@ -23,7 +23,7 @@ export default defineConfig(({command, mode}) => {
         '@': resolveDir('./src'),
       },
     },
-    base: '',
+    base: (command === 'build') ? '/admin/html/' : '/',
   }
 })
 
