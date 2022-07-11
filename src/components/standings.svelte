@@ -69,6 +69,7 @@
             </tbody>
         </table>
     </div>
+    <div class="mx-auto lg:ml-2" class:hidden={standings.length != 0}>Geen teams in poule</div>
 
     <p class="text-gray-600 text-xs" class:hidden={!overflown}>Swipe tabel voor meer stats</p>
 
