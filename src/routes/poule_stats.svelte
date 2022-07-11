@@ -10,10 +10,12 @@
     import Result from "@/components/result.svelte";
     import Standings from "@/components/standings.svelte";
     import GenGames from "@/modal/gen_games.svelte";
+    import TeamManager from "@/modal/team_manager.svelte";
     import SVG from 'svelte-inline-svg';
 
     // Assets
     import GenIcon from '@/assets/icons/rotate_arrows.svg';
+    import TeamIcon from '@/assets/icons/group.svg';
 
     let poule: Poule;
     let games: Array<Game> = [];
@@ -49,6 +51,7 @@
     onMount(async () => { await load_stats(); });
 
     let hide_gen_games = true;
+    let hide_team_manager = true;
 </script>
 
 <template>
@@ -61,7 +64,10 @@
                 <div>
                     <div class="flex flex-col items-center lg:items-start gap-y-3 w-screen lg:w-auto px-4 lg:sticky lg:top-20">
                         <!-- Poule standings -->
-                        <h2 class="font-light text-3xl">Stand</h2>
+                        <div class="flex flex-row items-center lg:w-full justify-between lg:bg-white lg:sticky lg:top-20">
+                            <span class="font-light text-3xl">Stand</span>
+                            <div class="flex items-center hover:cursor-pointer" on:click={() => hide_team_manager = false}><span class="text-xs mb-0.5">Team beheer</span><SVG src={TeamIcon} class="w-4 h-4 mx-2"/></div>
+                        </div>
                         <Standings standings={stats}/>
                     </div>
                 </div>
@@ -70,7 +76,7 @@
                     <!-- Poule games -->
                     <div class="flex flex-row items-center lg:w-full justify-between lg:bg-white lg:sticky lg:top-20">
                         <span class="font-light text-3xl">Wedstrijden</span>
-                        <div class="flex items-center" class:hidden={games.length == 0}><span class="text-xs ">Genereer wedstrijden</span><SVG src={GenIcon} class="w-4 h-4 mx-2 hover:cursor-pointer" on:click={() => hide_gen_games = false}/></div>
+                        <div class="flex items-center hover:cursor-pointer" class:hidden={games.length == 0} on:click={() => hide_gen_games = false}><span class="text-xs mb-0.5">Genereer wedstrijden</span><SVG src={GenIcon} class="w-4 h-4 mx-2"/></div>
                     </div>
                     {#each games as game (game.id)}
                     <Result team1={game.team1} team2={game.team2} time={game.time.substring(0, 5)} court_num={game.court_num}/>
@@ -81,6 +87,7 @@
             </div>
 
             <GenGames poule={poule.id} bind:hidden={hide_gen_games} on:reload={() => load_stats()}/>
+            <TeamManager poule={poule.id} bind:hidden={hide_team_manager} on:reload={() => load_stats()}/>
         {:else}
             <!-- Loader -->
             <Loader {error}/>
