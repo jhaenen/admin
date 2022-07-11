@@ -61,7 +61,7 @@
             <h1 class="my-2 text-[12vw] leading-none font-light text-center mi:text-5xl lg:py-5 lg:w-full lg:bg-white lg:sticky lg:top-0">Poule: {poule.name}</h1>
 
             <div class="flex flex-col lg:flex-row-reverse gap-x-10 gap-y-4 m-4">
-                <div>
+                <div class="sm:w-[320px]">
                     <div class="flex flex-col items-center lg:items-start gap-y-3 w-screen lg:w-auto px-4 lg:sticky lg:top-20">
                         <!-- Poule standings -->
                         <div class="flex flex-row items-center lg:w-full justify-between lg:bg-white lg:sticky lg:top-20">
@@ -72,11 +72,11 @@
                     </div>
                 </div>
 
-                <div class="flex flex-col items-center lg:items-start gap-y-5">
+                <div class="flex flex-col items-center lg:items-start gap-y-5 sm:w-[380px]">
                     <!-- Poule games -->
                     <div class="flex flex-row items-center lg:w-full justify-between lg:bg-white lg:sticky lg:top-20">
                         <span class="font-light text-3xl">Wedstrijden</span>
-                        <div class="flex items-center hover:cursor-pointer" class:hidden={games.length == 0} on:click={() => hide_gen_games = false}><span class="text-xs mb-0.5">Genereer wedstrijden</span><SVG src={GenIcon} class="w-4 h-4 mx-2"/></div>
+                        <div class="flex items-center hover:cursor-pointer" class:hidden={stats.length == 0} on:click={() => hide_gen_games = false}><span class="text-xs mb-0.5">Genereer wedstrijden</span><SVG src={GenIcon} class="w-4 h-4 mx-2"/></div>
                     </div>
                     {#each games as game (game.id)}
                     <Result team1={game.team1} team2={game.team2} time={game.time.substring(0, 5)} court_num={game.court_num}/>
