@@ -13,7 +13,7 @@
 
     let error = false;
 
-    onMount(async () => {
+    async function loadGames() {
         const server = import.meta.env.VITE_SERVER_URL;
 
         // Get games from server
@@ -25,7 +25,9 @@
             error = true;
             console.error(err);
         }
-    });
+    }
+
+    onMount(async () => await loadGames());
 
 </script>
 
@@ -36,7 +38,7 @@
 
         <!-- Game list -->
         {#each games as game (game.id)}
-        <Result team1={game.team1} team2={game.team2} time={game.time.substring(0, 5)} poule={game.poule.name} court_num={game.court_num}/>
+        <Result gameID={game.id} team1={game.team1} team2={game.team2} time={game.time.substring(0, 5)} poule={game.poule.name} court_num={game.court_num} on:reload={loadGames}/>
         {:else}
             <Loader {error}/>
         {/each}

@@ -48,7 +48,7 @@
         }
     }
 
-    onMount(async () => { await load_stats(); });
+    onMount(async () => await load_stats());
 
     let hide_gen_games = true;
     let hide_team_manager = true;
@@ -79,7 +79,7 @@
                         <div class="flex items-center hover:cursor-pointer" class:hidden={stats.length == 0} on:click={() => hide_gen_games = false}><span class="text-xs mb-0.5">Genereer wedstrijden</span><SVG src={GenIcon} class="w-4 h-4 mx-2"/></div>
                     </div>
                     {#each games as game (game.id)}
-                    <Result team1={game.team1} team2={game.team2} time={game.time.substring(0, 5)} court_num={game.court_num}/>
+                    <Result gameID={game.id} team1={game.team1} team2={game.team2} time={game.time.substring(0, 5)} court_num={game.court_num} on:reload={() => load_stats()}/>
                     {:else}
                         <p>Geen wedstrijden gepland.</p>
                     {/each}
