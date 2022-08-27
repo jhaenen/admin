@@ -1,6 +1,7 @@
 export interface Poule {
     id: number;
     name: string;
+    color: string;
 }
 
 export interface Team {
@@ -19,6 +20,7 @@ export interface Game {
     team2: TeamResult;
     time: string;
     court_num: number;
+    ref: Team;
 }
 
 export interface Stats {

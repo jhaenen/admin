@@ -38,7 +38,7 @@
 
         <!-- Game list -->
         {#each games as game (game.id)}
-        <Result gameID={game.id} team1={game.team1} team2={game.team2} time={game.time.substring(0, 5)} poule={game.poule.name} court_num={game.court_num} on:reload={loadGames}/>
+        <Result gameID={game.id} team1={game.team1} team2={game.team2} time={game.time.substring(0, 5)} poule={game.poule.name} court_num={game.court_num} ref={game.ref} banner color={game.poule.color} on:reload={loadGames}/>
         {:else}
             <Loader {error}/>
         {/each}

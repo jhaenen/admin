@@ -4,10 +4,12 @@
 
     // Types
     import type { Poule } from "@/types/types";
+    import { colors } from "@/types/constants";
 
     // Components
     import Loader from "@/components/load-ball.svelte";
     import SVG from 'svelte-inline-svg';
+    import ColorPicker from "@/components/color_picker.svelte";
 
     // Assets
     import PlusIcon from "@/assets/icons/plus.svg";
@@ -16,15 +18,17 @@
     import CheckIcon from "@/assets/icons/check.svg";
     import CancelIcon from "@/assets/icons/cancel.svg";
 
+
     interface Edit {
         id: number;
         name: string;
+        color: string;
         isEditing: boolean;
     }
 
     let poules: Array<Poule> = [];
     let poulesEdit: Array<Edit> = [];
-    let pouleAdd: {isAdding: boolean, name: string} = {isAdding: false, name: ""};
+    let pouleAdd: {isAdding: boolean, name: string, color: string} = {isAdding: false, name: "", color: colors[0]};
 
     let error = false;
 
@@ -41,6 +45,7 @@
                 poulesEdit.push({
                     id: poule.id,
                     name: poule.name,
+                    color: poule.color,
                     isEditing: false
                 });
             });
@@ -63,7 +68,8 @@
                         "Content-Type": "application/json"
                     },
                     body: JSON.stringify({
-                        name: pouleAdd.name
+                        name: pouleAdd.name,
+                        color: pouleAdd.color
                     })
                 });
             } catch (err) {
@@ -72,7 +78,7 @@
 
             await loadPoules();
 
-            pouleAdd = {isAdding: false, name: ""};
+            pouleAdd = {isAdding: false, name: "", color: colors[0]};
         }        
     }
 
@@ -88,7 +94,8 @@
                 },
                 body: JSON.stringify({
                     id: poulesEdit[index].id,
-                    name: poulesEdit[index].name
+                    name: poulesEdit[index].name,
+                    color: poulesEdit[index].color
                 })
             });
         } catch (err) {
@@ -136,8 +143,11 @@
         <!-- Poule list -->
         {#each poules as poule, index}
             <div class="text-center">
-                <a class="text-2xl font-bold" class:hidden={poulesEdit[index].isEditing} href="#/poules/{poule.id}">{poule.name}</a>
+                <a class="text-2xl font-bold underline underline-offset-4" style={"text-decoration-color:" + poule.color} class:hidden={poulesEdit[index].isEditing} href="#/poules/{poule.id}">{poule.name}</a>
                 <input class="text-2xl font-bold text-center bg-slate-50 border border-gray-400 rounded accent-primary" class:hidden={!poulesEdit[index].isEditing} type="text" bind:value={poulesEdit[index].name} />
+                <div class="mt-2 w-full flex justify-center" class:hidden={!poulesEdit[index].isEditing}>
+                    <ColorPicker bind:value={poulesEdit[index].color} />
+                </div>
                 <div class="mt-2 flex flex-row items-center justify-center" class:hidden={poulesEdit[index].isEditing}>
                     <SVG src={EditIcon} class="mx-2 w-5 h-5 hover:cursor-pointer fill-slate-600" on:click={() => poulesEdit[index].isEditing = true}/>
                     <SVG src={MinusIcon} class="mx-2 w-5 h-5 hover:cursor-pointer fill-rose-600" on:click={() => pushDelete(index)} />
@@ -146,6 +156,7 @@
                     <SVG src={CheckIcon} class="mx-2 w-5 h-5 hover:cursor-pointer fill-teal-600" on:click={() => {pushEdit(index)}}/>
                     <SVG src={CancelIcon} class="mx-2 w-5 h-5 hover:cursor-pointer fill-rose-600" on:click={() => {poulesEdit[index].isEditing = false; poulesEdit[index].name = poules[index].name;}}/>
                 </div>
+                
             </div>
         {:else}
             <!-- Loader -->
@@ -156,6 +167,9 @@
         {#if pouleAdd.isAdding}
             <div>
                 <input class="text-2xl font-bold text-center bg-slate-50 border border-gray-400 rounded accent-primary" type="text" bind:value={pouleAdd.name} placeholder="POULE NAAM" />
+                <div class="mt-2 w-full flex justify-center">
+                    <ColorPicker bind:value={pouleAdd.color} />
+                </div>
                 <div class="mt-2 flex flex-row items-center justify-center">
                     <SVG src={CheckIcon} class="mx-2 w-5 h-5 hover:cursor-pointer fill-teal-600" on:click={() => pushAdd()} />
                     <SVG src={CancelIcon} class="mx-2 w-5 h-5 hover:cursor-pointer fill-rose-600" on:click={() => {pouleAdd.isAdding = false; pouleAdd.name = ""}} />

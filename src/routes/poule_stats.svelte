@@ -58,7 +58,9 @@
     <div class="flex flex-col items-center m-4"><!-- lg:items-start lg:text-left -->
         {#if loaded && !error}
             <!-- Title -->
-            <h1 class="my-2 text-[12vw] leading-none font-light text-center mi:text-5xl lg:py-5 lg:w-full lg:bg-white lg:sticky lg:top-0">Poule: {poule.name}</h1>
+            <h1 class="text-[12vw] leading-none font-light text-center border-b-2 py-[5px] mi:text-5xl lg:py-5 lg:w-full lg:bg-white lg:sticky lg:top-0 sm:my-2 sm:border-b-0 sm:underline sm:underline-offset-[10px] sm:decoration-2 z-10" style={"text-decoration-color:" + poule.color + ";border-color:" + poule.color}>
+                Poule: {poule.name}
+            </h1>
 
             <div class="flex flex-col lg:flex-row-reverse gap-x-10 gap-y-4 m-4">
                 <div class="lg:w-[320px]">
@@ -74,12 +76,12 @@
 
                 <div class="flex flex-col items-center lg:items-start gap-y-5 lg:w-[380px]">
                     <!-- Poule games -->
-                    <div class="flex flex-col items-center lg:flex-row lg:w-full justify-between lg:bg-white lg:sticky lg:top-20">
+                    <div class="flex flex-col items-center lg:flex-row lg:w-full justify-between lg:bg-white lg:sticky lg:top-20 z-10">
                         <span class="font-light text-3xl">Wedstrijden</span>
                         <div class="flex items-center hover:cursor-pointer" class:hidden={stats.length == 0} on:click={() => hide_gen_games = false}><span class="text-xs mb-0.5">Genereer wedstrijden</span><SVG src={GenIcon} class="w-4 h-4 mx-2"/></div>
                     </div>
                     {#each games as game (game.id)}
-                    <Result gameID={game.id} team1={game.team1} team2={game.team2} time={game.time.substring(0, 5)} court_num={game.court_num} on:reload={() => load_stats()}/>
+                    <Result gameID={game.id} team1={game.team1} team2={game.team2} time={game.time.substring(0, 5)} court_num={game.court_num} ref={game.ref} on:reload={() => load_stats()}/>
                     {:else}
                         <p>Geen wedstrijden gepland.</p>
                     {/each}
