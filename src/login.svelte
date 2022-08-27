@@ -10,7 +10,7 @@
     const login = async () => {
         const auth = btoa(username + ":" + password);
         
-        const success = await fetch("/admin/login.php", {
+        const success = await fetch("/admin/login", {
             headers: {
                 Authorization: "Basic " + auth
             }

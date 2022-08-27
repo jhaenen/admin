@@ -14,7 +14,7 @@
     let error = false;
 
     async function loadGames() {
-        const server = import.meta.env.VITE_SERVER_URL;
+        const server = import.meta.env.VITE_API_URL;
 
         // Get games from server
         try {

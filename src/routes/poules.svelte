@@ -29,7 +29,7 @@
     let error = false;
 
     async function loadPoules() {
-        const server = import.meta.env.VITE_SERVER_URL;
+        const server = import.meta.env.VITE_API_URL;
 
         // Get poules from server
         try {
@@ -53,11 +53,11 @@
 
     async function pushAdd() {
         if (pouleAdd.isAdding) {
-            const server = import.meta.env.VITE_SERVER_URL;
+            const server = import.meta.env.VITE_ADMIN_API_URL;
 
             // Make PUT request to server
             try {
-                await fetch(server + "admin/poules", {
+                await fetch(server + "poules", {
                     method: "PUT",
                     headers: {
                         "Content-Type": "application/json"
@@ -77,11 +77,11 @@
     }
 
     async function pushEdit(index: number) {
-        const server = import.meta.env.VITE_SERVER_URL;
+        const server = import.meta.env.VITE_ADMIN_API_URL;
 
         // Make PATCH request to server
         try {
-            await fetch(server + "admin/poules", {
+            await fetch(server + "poules", {
                 method: "PATCH",
                 headers: {
                     "Content-Type": "application/json"
@@ -101,12 +101,12 @@
     }
 
     async function pushDelete(index: number) {
-        const server = import.meta.env.VITE_SERVER_URL;
+        const server = import.meta.env.VITE_ADMIN_API_URL;
 
         if (confirm("Weet je zeker dat je deze poule wilt verwijderen? Bij deze actie worden alle teams en wedstrijden in deze poule ook verwijderd.")) {
             // Make DELETE request to server
             try {
-                await fetch(server + "admin/poules", {
+                await fetch(server + "poules", {
                     method: "DELETE",
                     headers: {
                         "Content-Type": "application/json"

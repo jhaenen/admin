@@ -34,11 +34,11 @@
     }
 
     async function pushEdit() {
-        const server = import.meta.env.VITE_SERVER_URL;
+        const server = import.meta.env.VITE_ADMIN_API_URL;
 
         // Make PATCH request to server
         try {
-            await fetch(server + "admin/results", {
+            await fetch(server + "results", {
                 method: "PATCH",
                 headers: {
                     "Content-Type": "application/json"

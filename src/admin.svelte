@@ -9,6 +9,7 @@
     import PouleStats from '@/routes/poule_stats.svelte';
 
     // Components
+    import SVG from 'svelte-inline-svg';
     import NavButton from '@/components/nav-button.svelte';
 
     // Assets
@@ -16,6 +17,7 @@
     import home_icon from "@/assets/icons/house.svg";
     import poules_icon from "@/assets/icons/basketball.svg";
     import schedule_icon from "@/assets/icons/newspaper.svg";
+    import logout_icon from "@/assets/icons/logout.svg";
 
     const routes = {
         '/': Home,
@@ -35,9 +37,14 @@
             <a href="#/" class="w-24 sm:py-3 sm:px-4 sm:w-auto"><NavButton label="Home" icon={home_icon} color={icon_color}/></a>
             <a href="#/poules" class="w-24 sm:py-3 sm:px-4 sm:w-auto"><NavButton label="Poules" icon={poules_icon} color={icon_color}/></a>
             <a href="#/schema" class="w-24 sm:py-3 sm:px-4 sm:w-auto"><NavButton label="Dagschema" icon={schedule_icon} color={icon_color}/></a>
+            <a href="logout" class="hidden mr-0 ml-auto py-3 px-4 w-auto sm:flex gap-2 items-center"><NavButton label="Uitloggen"/><SVG src={logout_icon} class="w-5 h-5 hover:cursor-pointer fill-white" /></a>
         </nav>
     </div>
     
     <!-- Main content -->
-    <div class="p-1 absolute w-full top-0 bottom-[78px] sm:top-[78px] overflow-y-scroll sm:bottom-0"><Router {routes}/></div>
+    <div class="p-1 absolute w-full top-0 bottom-[78px] sm:top-[78px] overflow-y-scroll sm:bottom-0">
+        <div class="font-bold text-center">Admin modus</div>
+        <a href="logout" class="flex absolute gap-2 items-center top-1 right-2 sm:hidden"><span>Uitloggen</span> <SVG src={logout_icon} class="w-5 h-5  fill-slate-700" /></a>
+        <Router {routes}/>
+    </div>
 </main>

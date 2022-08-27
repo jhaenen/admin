@@ -24,10 +24,10 @@
     };
 
     async function gen_games() {
-        const server = import.meta.env.VITE_SERVER_URL;
+        const server = import.meta.env.VITE_ADMIN_API_URL;
 
         try {
-            await fetch(server + "/admin/gen_games", {
+            await fetch(server + "gen_games", {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

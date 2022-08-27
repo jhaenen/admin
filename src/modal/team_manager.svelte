@@ -38,11 +38,11 @@
     const dispatch = createEventDispatcher();
 
     async function load_teams() {
-        const server = import.meta.env.VITE_SERVER_URL;
+        const server = import.meta.env.VITE_ADMIN_API_URL;
 
         // Get teams from server
         try {
-            const response = await fetch(server + "admin/teams?poule=" + poule);
+            const response = await fetch(server + "teams?poule=" + poule);
             teams = await response.json();
 
             teamsEdit = [];
@@ -68,11 +68,11 @@
 
     async function pushAdd() {
         if (teamAdd.isAdding) {
-            const server = import.meta.env.VITE_SERVER_URL;
+            const server = import.meta.env.VITE_ADMIN_API_URL;
 
             // Make PUT request to server
             try {
-                await fetch(server + "admin/teams", {
+                await fetch(server + "teams", {
                     method: "PUT",
                     headers: {
                         "Content-Type": "application/json"
@@ -94,11 +94,11 @@
     }
 
     async function pushEdit(index: number) {
-        const server = import.meta.env.VITE_SERVER_URL;
+        const server = import.meta.env.VITE_ADMIN_API_URL;
 
         // Make PATCH request to server
         try {
-            await fetch(server + "admin/teams", {
+            await fetch(server + "teams", {
                 method: "PATCH",
                 headers: {
                     "Content-Type": "application/json"
@@ -119,12 +119,12 @@
     }
 
     async function pushDelete(index: number) {
-        const server = import.meta.env.VITE_SERVER_URL;
+        const server = import.meta.env.VITE_ADMIN_API_URL;
 
         if (confirm("Weet je zeker dat je dit team wilt verwijderen? Bij deze actie worden alle wedstrijden van dit team ook verwijderd.")) {
             // Make DELETE request to server
             try {
-                await fetch(server + "admin/teams", {
+                await fetch(server + "teams", {
                     method: "DELETE",
                     headers: {
                         "Content-Type": "application/json"
