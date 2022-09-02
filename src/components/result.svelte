@@ -79,7 +79,7 @@
         
         <div class="flex justify-between items-center">
             <div class="w-[35vw] mi:w-40">
-                <div class="text-[5vw] m-1 mi:text-xl font-bold">{team1.name}</div>
+                <div class="m-1 mi:leading-7 font-bold" style="font-size: min(1rem, 1.25rem);">{team1.name}</div>
                 <div class="text-[8vw] mi:text-4xl font-light" class:hidden={editMode}>{team1.score}</div>
                 <input class="text-[8vw] w-24 ml-5 text-center mi:text-4xl font-light bg-slate-50 border border-gray-400 rounded accent-primary" class:hidden={!editMode} type="number" bind:value={tempScore1} min="0" max="999" />
             </div>
@@ -90,7 +90,7 @@
             </div>
 
             <div class="w-[35vw] mi:w-40">
-                <div class="text-[5vw] m-1 mi:text-xl font-bold">{team2.name}</div>
+                <div class="m-1 mi:leading-7 font-bold" style="font-size: min(1rem, 1.25rem);">{team2.name}</div>
                 <div class="text-[8vw] mi:text-4xl font-light" class:hidden={editMode}>{team2.score}</div>
                 <input class="text-[8vw] ml-5 w-24 text-center mi:text-4xl font-light bg-slate-50 border border-gray-400 rounded accent-primary" class:hidden={!editMode} type="number" bind:value={tempScore2}  min="0" max="999"/>
             </div>
