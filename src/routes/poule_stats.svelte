@@ -31,14 +31,14 @@
 
         // Get stats from server
         try {
-            const g_resp = await fetch(server + "games/" + params.id);
+            const [g_resp, p_resp, s_resp] = await Promise.all([
+                fetch(server + "games/" + params.id),
+                fetch(server + "poules/" + params.id),
+                fetch(server + "stats/" + params.id)
+            ]);
+
             games = await g_resp.json();
-            console.log(games);
-
-            const p_resp = await fetch(server + "poules/" + params.id);
             poule = await p_resp.json();
-
-            const s_resp = await fetch(server + "stats/" + params.id);
             stats = await s_resp.json();
 
             loaded = true;
@@ -50,7 +50,6 @@
 
     onMount(async () => await load_stats());
 
-    let hide_gen_games = true;
     let hide_team_manager = true;
 </script>
 
@@ -78,7 +77,6 @@
                     <!-- Poule games -->
                     <div class="flex flex-col items-center lg:flex-row lg:w-full justify-between lg:bg-white lg:sticky lg:top-20 z-10">
                         <span class="font-light text-3xl">Wedstrijden</span>
-                        <div class="flex items-center hover:cursor-pointer" class:hidden={stats.length == 0} on:click={() => hide_gen_games = false}><span class="text-xs mb-0.5">Genereer wedstrijden</span><SVG src={GenIcon} class="w-4 h-4 mx-2"/></div>
                     </div>
                     {#each games as game (game.id)}
                     <Result gameID={game.id} team1={game.team1} team2={game.team2} time={game.time.substring(0, 5)} court_num={game.court_num} ref={game.ref} on:reload={() => load_stats()}/>
@@ -88,7 +86,6 @@
                 </div>
             </div>
 
-            <GenGames poule={poule.id} bind:hidden={hide_gen_games} on:reload={() => load_stats()}/>
             <TeamManager poule={poule.id} bind:hidden={hide_team_manager} on:reload={() => load_stats()}/>
         {:else}
             <!-- Loader -->

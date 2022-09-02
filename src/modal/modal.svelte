@@ -16,5 +16,5 @@
             <slot></slot>
         </div>
     </div>
-    <div class="fixed top-0 left-0 w-full h-full bg-black z-0 opacity-60 hover:cursor-pointer" class:hidden on:click={() => hidden = true}></div>
+    <div class="fixed top-0 left-0 w-full h-full bg-black z-10 opacity-60 hover:cursor-pointer" class:hidden on:click={() => hidden = true}></div>
 </template>
