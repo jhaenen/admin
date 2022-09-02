@@ -1,13 +1,14 @@
 <script lang="ts">
     import Login_Form from "./components/login-form.svelte";
 
-    import logo from "@/assets/logo_lq.webp";
+    import logo from "@/assets/logo.svg";
 
-    let username = "";
-    let password = "";
     let error = "";
 
-    const login = async () => {
+    const login = async (event) => {
+        let username = event.detail.username;
+        let password = event.detail.password;
+
         const auth = btoa(username + ":" + password);
         
         const success = await fetch("/admin/login", {
@@ -41,6 +42,6 @@
         <img class="h-[20vh]" src={logo} alt="">
     </div>
     <div class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
-        <Login_Form bind:username={username} bind:password={password} on:click={login} {error}/>
+        <Login_Form on:login={login} {error}/>
     </div>
 </main>
