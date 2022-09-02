@@ -17,6 +17,7 @@
     let gamesSorted: Array<TimeSlot> = [];
 
     let error = false;
+    let loaded = false;
 
     async function loadGames() {
         const server = import.meta.env.VITE_API_URL;
@@ -26,6 +27,7 @@
             const response = await fetch(server + "games/sorted");
             gamesSorted = await response.json();
             error = false;
+            loaded = true;
         } catch (err) {
             error = true;
             console.error(err);
@@ -52,7 +54,14 @@
                     {/each}
                 </div> 
             {:else}
-                <Loader {error}/>
+                <!-- Loader -->
+                {#if !loaded} 
+                    <Loader {error}/>
+                {:else}
+                    <div class="text-center">
+                        <p>Er zijn nog geen poules aangemaakt.</p>
+                    </div>
+                {/if}
             {/each}
         </div>
     </div>

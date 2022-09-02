@@ -31,6 +31,7 @@
     let pouleAdd: {isAdding: boolean, name: string, color: string} = {isAdding: false, name: "", color: colors[0]};
 
     let error = false;
+    let loaded = false;
 
     async function loadPoules() {
         const server = import.meta.env.VITE_API_URL;
@@ -50,6 +51,7 @@
                 });
             });
 
+            loaded = true;
         } catch (err) {
             error = true;
             console.error(err);
@@ -160,7 +162,13 @@
             </div>
         {:else}
             <!-- Loader -->
-            <Loader {error}/>
+            {#if !loaded} 
+                <Loader {error}/>
+            {:else}
+                <div class="text-center">
+                    <p>Er zijn nog geen poules aangemaakt.</p>
+                </div>
+            {/if}
         {/each}
 
         <!-- Add poule -->
