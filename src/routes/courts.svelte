@@ -4,6 +4,7 @@
 
     let hide_gen_games = true;
     let hide_gen_grouped = true;
+    let court: number;
 </script>
 
 <template>
@@ -17,12 +18,20 @@
                 Veld 1/2
             </div>
 
-            <div class="relative border-2 p-3 rounded-lg border-slate-500 w-full text-center text-2xl font-bold hover:cursor-pointer" on:click={() => hide_gen_games = false}>
+            <div class="relative border-2 p-3 rounded-lg border-slate-500 w-full text-center text-2xl font-bold hover:cursor-pointer" on:click={() => { hide_gen_games = false; court = 1 }}>
+                Veld 1
+            </div>
+
+            <div class="relative border-2 p-3 rounded-lg border-slate-500 w-full text-center text-2xl font-bold hover:cursor-pointer" on:click={() => { hide_gen_games = false; court = 2 }}>
+                Veld 2
+            </div>
+
+            <div class="relative border-2 p-3 rounded-lg border-slate-500 w-full text-center text-2xl font-bold hover:cursor-pointer" on:click={() => { hide_gen_games = false; court = 3 }}>
                 Veld 3
             </div>
         </div>
 
-        <GenGames bind:hidden={hide_gen_games}/>
+        <GenGames bind:hidden={hide_gen_games} court={court}/>
         <GenGrouped bind:hidden={hide_gen_grouped}/>
     </div>
 </template>
